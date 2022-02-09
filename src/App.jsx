@@ -4,6 +4,7 @@ import Home from './paginas/Home'
 import Sobre from './paginas/Sobre'
 import { BrowserRouter as Router, Route } from 'react-router-dom'
 import { Switch } from 'react-router-dom'
+import Pagina404 from './paginas/Pagina404'
 
 function App() {
   {/* const Router = () => {
@@ -25,6 +26,9 @@ function App() {
           </Route>
           <Route path='/sobre' exact>
             <Sobre />
+          </Route>
+          <Route>
+            <Pagina404 />
           </Route>
         </Switch>
       </Router>
