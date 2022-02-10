@@ -5,6 +5,7 @@ import Sobre from './paginas/Sobre'
 import { BrowserRouter as Router, Route } from 'react-router-dom'
 import { Switch } from 'react-router-dom'
 import Pagina404 from './paginas/Pagina404'
+import Cabecalho from './components/Cabecalho'
 
 function App() {
   {/* const Router = () => {
@@ -20,6 +21,7 @@ function App() {
   return (
     <>
       <Router >
+        <Cabecalho />
         <Switch>
           <Route path='/' exact>
             <Home />
