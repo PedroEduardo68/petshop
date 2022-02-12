@@ -3,20 +3,21 @@ import { useParams } from "react-router-dom/cjs/react-router-dom.min";
 import '../assets/css/blog.css';
 import ListaCategorias from "../components/ListaCategorias";
 import ListaPost from "../components/ListaPost";
-import { Route } from "react-router-dom"
+import { Route, Switch } from "react-router-dom"
 import { useRouteMatch, Link } from "react-router-dom";
 import { busca } from "../api/api";
+import SubCategoria from "./SubCategoria"
 
 
 const Categoria = () => {
   const { id } = useParams()
 
   const { url, path } = useRouteMatch()
-  const [subCategorias, setSubCategorias] = useState([])
+  const [subcategorias, setSubCategorias] = useState([])
 
   useEffect(() => {
     busca(`/categorias/${id}`, (categoria) => {
-      setSubCategorias(categoria.subCategorias)
+      setSubCategorias(categoria.subcategorias)
     })
   }, [id])
 
@@ -29,23 +30,28 @@ const Categoria = () => {
       <ListaCategorias />
       <ul className="lista-categorias container flex">
         {
-          subCategorias.map((subcategoria) => (
-            <Link to={`/categoria/${categoria.id}`}>
-              <li className={`lista-categorias__categoria lista-categorias__categoria--${id}`} key={subcategoria}>
-                {subcategoria.nome}
-              </li>
-            </Link>
+          subcategorias.map((subcategoria) => (
+            <li
+              className={`lista-categorias__categoria lista-categorias__categoria--${id}`}
+              key={subcategoria}
+            >
+              <Link to={`${url}/${subcategoria}`}>
+                {subcategoria}
+              </Link>
+            </li>
           ))
+
         }
       </ul>
 
-
-
-
-
-      <Route exact path={`${path}/`}>
-        <ListaPost url={`/posts?categoria=${id}`} />
-      </Route>
+      <Switch>
+        <Route exact path={`${path}/`}>
+          <ListaPost url={`/posts?categoria=${id}`} />
+        </Route>
+        <Route path={`${path}/:subcategoria`}>
+          <SubCategoria />
+        </Route>
+      </Switch>
     </>
   )
 }

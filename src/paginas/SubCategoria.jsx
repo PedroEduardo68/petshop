@@ -10,3 +10,5 @@ const SubCategoria = () => {
     <ListaPost url={`/posts?subcategoria=${subcategoria}`} />
   )
 }
+
+export default SubCategoria
